@@ -1,12 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { StyleRoot } from 'radium';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import ReporteAsistencia from './views/ReporteAsistencia';
+import NotFound from './views/NotFound';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+    <Routes>
+    <Route path='/*' element={<NotFound/>}/>
+      <Route path='/' element={<App />}/>
+      <Route path='/Reporte-Asistencia' element={<ReporteAsistencia />}/>
+      
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

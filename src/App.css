@@ -1,10 +1,19 @@
 .App {
   text-align: center;
+  background-image: url('./Assets/nuevaFiee.jpg');
+  background-size: cover;
+  /* background-color: ; */
+  /* text-align: right; */
+  
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  
+  /* background-image: url('./Assets/nuevaFiee.jpg') ;
+ fon
+  background-size: 25px 50px; */
 }
 
 @media (prefers-reduced-motion: no-preference) {

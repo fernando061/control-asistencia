@@ -16,4 +16,7 @@ export class UsuarioDto{
     contrasena: string
     
     personalDni: string
+    
+    @Expose()
+    usuarioJwt: string
 }

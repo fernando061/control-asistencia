@@ -30,3 +30,4 @@ export class crearPersonalDto{
     fechNacimiento: Date
 
 }
+

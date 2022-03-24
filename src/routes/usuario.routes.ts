@@ -6,5 +6,6 @@ const usaurioRouter = Router();
 
 usaurioRouter
     .post("/registro", usuarioController.crearUsuario)
+    .post("/login", usuarioController.login)
 
 export default usaurioRouter

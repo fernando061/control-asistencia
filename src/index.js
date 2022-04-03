@@ -8,12 +8,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import ReporteAsistencia from './views/ReporteAsistencia';
 import NotFound from './views/NotFound';
+import Login from './views/Login';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
     <Routes>
     <Route path='/*' element={<NotFound/>}/>
-      <Route path='/' element={<App />}/>
+       <Route path='/' element={ <Login/>}/>
+      <Route path='/Asistencia' element={<App />}/>
       <Route path='/Reporte-Asistencia' element={<ReporteAsistencia />}/>
       
       </Routes>

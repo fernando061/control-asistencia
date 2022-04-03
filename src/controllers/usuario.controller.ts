@@ -4,10 +4,11 @@ import { Request, Response } from "express"
 import {usuario} from '../config/models'
 import { crearUsuarioDto } from "../dto/request/usuario.dto";
 import { UsuarioDto } from "../dto/response/usuario.dto";
-import { sign } from "jsonwebtoken";
+import { sign, SignOptions } from "jsonwebtoken";
 import { TipoUsuario } from "../model/usuarios.model";
 import { LoginDto } from "../dto/request/login.dto";
 import { compareSync } from "bcrypt";
+import { RequestUser } from "../middlewares/validator";
 
 interface Payload {
     usuarioId: string
@@ -16,7 +17,9 @@ interface Payload {
 
 }
 
-
+const tokenOptions: SignOptions = {
+    expiresIn: "1h"
+}
 
 
 export const crearUsuario = async (req: Request, res: Response) => {
@@ -54,7 +57,7 @@ export const crearUsuario = async (req: Request, res: Response) => {
 
         }
         
-        const jwt = sign(payload, process.env.JWT_TOKEN ?? "",{expiresIn: "1h"})
+        const jwt = sign(payload, process.env.JWT_TOKEN ?? "",tokenOptions)
 
         const content = plainToClass(UsuarioDto, {...nuevoUsuario.toJSON(),
                                                     usuarioJwt: jwt})
@@ -108,7 +111,7 @@ console.log(UsuarioEncontrado)
             rol: UsuarioEncontrado.getDataValue('rol')
         }
         console.log(payload)
-        const jwt = sign(payload, process.env.JWT_TOKEN ??  "");
+        const jwt = sign(payload, process.env.JWT_TOKEN ??  "",tokenOptions);
         console.log(jwt)
         return res.json({
             content: jwt,
@@ -116,13 +119,23 @@ console.log(UsuarioEncontrado)
         })
 
     }catch(error){
-        return res.status(400).json({
-            message: "error al hacer login",
-            content: error,
-        })
+        if(error instanceof Error){
+            return res.status(400).json({
+                message: "error al hacer login",
+                content: error.message,
+            })
+        }
+        
     }
 }
 
-export const perfil = (req: Request, res: Response) => {
+export const perfil = (req: RequestUser, res: Response) => {
     
+    console.log(req.usuario)
+    const content = plainToClass(UsuarioDto, req.usuario)
+
+    return res.json({
+        message: "Hola desde el endpoint final",
+        content
+    })
 }
